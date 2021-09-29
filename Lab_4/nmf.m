@@ -11,12 +11,27 @@ function [B,W,obj,k] = nmf(V,rank,max_iter,lambda)
 % NUM_ITER - Number of iterations run.
 
 % Your code here
+% initialize 
 [D,N] = size(V);
 K = rank;
 B = rand(D,K);
-%W = ones(K,N);
-W1 = ones(1,N);
-W2 = zeros(K-1, N);
-W = [W1;W2];
+W = rand(K,N);
+W = W./sum(W);
+k = 0;
+%obj
+old_obj = compute_objective(V, B, W);
+
+%iter
+for k = 1:max_iter
+    B = B.*(((V./(B*W))*W')./(ones(1,N)*W'));
+    W = W.*((B'*(V./(B*W)))./(B'*ones(D,1)));
+    obj = compute_objective(V, B, W);
+    if abs(old_obj-obj)<=lambda
+        break
+    end
+    
+   
+
+end
 end
 
