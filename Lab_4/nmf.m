@@ -25,6 +25,7 @@ old_obj = compute_objective(V, B, W);
 for k = 1:max_iter
     B = B.*(((V./(B*W))*W')./(ones(1,N)*W'));
     W = W.*((B'*(V./(B*W)))./(B'*ones(D,1)));
+    W = W./sum(W);
     obj = compute_objective(V, B, W);
     if abs(old_obj-obj)<=lambda
         break
