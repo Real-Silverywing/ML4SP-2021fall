@@ -6,7 +6,7 @@ BW = BW+eps;
 t1 = sum(V.*log(V./(B*W)),'all');
 t2 = sum(V,'all');
 t3 = sum(B*W,'all');
-obj = t1+t2+t3;
+obj = t1+t2-t3;
 
 % BW = B*W;
 % [imax,jmax] = size(V);
